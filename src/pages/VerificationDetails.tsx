@@ -1,16 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { Upload, Copy } from "lucide-react";
+import { Upload, Copy, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const VerificationDetails = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [receipt, setReceipt] = useState<File | null>(null);
+  const [timeLeft, setTimeLeft] = useState(480); // 8 minutes in seconds
+
+  useEffect(() => {
+    if (timeLeft <= 0) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft]);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   const accountDetails = {
     accountNumber: "6957666738",
@@ -57,6 +80,13 @@ const VerificationDetails = () => {
             <p className="text-muted-foreground">
               Review the account details below
             </p>
+            
+            <div className="mt-4 inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-lg">
+              <Clock className="w-5 h-5 text-primary" />
+              <span className="text-lg font-semibold text-primary">
+                {formatTime(timeLeft)}
+              </span>
+            </div>
           </div>
 
           <div className="space-y-6 mb-8">
