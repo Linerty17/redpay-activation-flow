@@ -3,33 +3,29 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
-import { Upload } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const VerificationForm = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [formData, setFormData] = useState({
-    accountNumber: "",
-    accountName: "",
-    bank: "",
+    fullName: "",
     email: "",
     userId: "",
     rpcCode: "",
-    receipt: null as File | null,
+    phoneNumber: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation
-    if (!formData.accountNumber || !formData.accountName || !formData.bank || 
-        !formData.email || !formData.userId || !formData.rpcCode || !formData.receipt) {
+    if (!formData.fullName || !formData.email || !formData.userId || 
+        !formData.rpcCode || !formData.phoneNumber) {
       toast({
         title: "Missing Information",
-        description: "Please fill in all fields and upload a receipt.",
+        description: "Please fill in all fields.",
         variant: "destructive",
       });
       return;
@@ -44,19 +40,8 @@ const VerificationForm = () => {
       return;
     }
 
-    navigate("/verifying");
+    navigate("/verification-details");
   };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFormData({ ...formData, receipt: e.target.files[0] });
-    }
-  };
-
-  const banks = [
-    "Access Bank", "First Bank", "GTBank", "UBA", "Zenith Bank",
-    "Moniepoint MFB", "Kuda Bank", "Sterling Bank", "Wema Bank"
-  ];
 
   return (
     <div className="min-h-screen bg-background py-12 px-4">
@@ -71,47 +56,19 @@ const VerificationForm = () => {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="accountNumber">Account Number</Label>
+              <Label htmlFor="fullName">Full Name</Label>
               <Input
-                id="accountNumber"
+                id="fullName"
                 type="text"
-                value={formData.accountNumber}
-                onChange={(e) => setFormData({ ...formData, accountNumber: e.target.value })}
-                placeholder="Enter your account number"
+                value={formData.fullName}
+                onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                placeholder="Enter your full name"
                 className="bg-background"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="accountName">Account Name</Label>
-              <Input
-                id="accountName"
-                type="text"
-                value={formData.accountName}
-                onChange={(e) => setFormData({ ...formData, accountName: e.target.value })}
-                placeholder="Enter your account name"
-                className="bg-background"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="bank">Select Bank</Label>
-              <Select value={formData.bank} onValueChange={(value) => setFormData({ ...formData, bank: value })}>
-                <SelectTrigger className="bg-background">
-                  <SelectValue placeholder="Choose your bank" />
-                </SelectTrigger>
-                <SelectContent>
-                  {banks.map((bank) => (
-                    <SelectItem key={bank} value={bank}>
-                      {bank}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="email">Email Address</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -148,29 +105,22 @@ const VerificationForm = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="receipt">Upload Proof (PNG or JPG)</Label>
-              <div className="relative">
-                <Input
-                  id="receipt"
-                  type="file"
-                  accept="image/png,image/jpeg,image/jpg"
-                  onChange={handleFileChange}
-                  className="bg-background cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
-                />
-                {formData.receipt && (
-                  <p className="mt-2 text-sm text-muted-foreground flex items-center gap-2">
-                    <Upload className="w-4 h-4" />
-                    {formData.receipt.name}
-                  </p>
-                )}
-              </div>
+              <Label htmlFor="phoneNumber">Phone Number</Label>
+              <Input
+                id="phoneNumber"
+                type="tel"
+                value={formData.phoneNumber}
+                onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                placeholder="Enter your phone number"
+                className="bg-background"
+              />
             </div>
 
             <Button
               type="submit"
               className="w-full h-12 text-lg bg-primary hover:bg-primary/90 shadow-lg shadow-primary/30"
             >
-              Submit Verification
+              Continue
             </Button>
           </form>
         </Card>

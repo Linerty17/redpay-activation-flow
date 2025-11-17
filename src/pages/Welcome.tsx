@@ -19,7 +19,7 @@ const Welcome = () => {
         <div className="space-y-3">
           <h1 className="text-4xl font-bold text-foreground">RedPay Validation</h1>
           <p className="text-muted-foreground text-lg">
-            Provide your details to complete account verification.
+            Start your verification process.
           </p>
         </div>
 
@@ -29,7 +29,7 @@ const Welcome = () => {
           size="lg"
           className="w-full text-lg h-14 bg-primary hover:bg-primary/90 shadow-lg shadow-primary/30 transition-all duration-300"
         >
-          Start Verification
+          Begin
         </Button>
       </div>
     </div>

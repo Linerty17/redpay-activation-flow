@@ -14,10 +14,10 @@ const Error = () => {
             <AlertCircle className="w-10 h-10 text-destructive" />
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-2">
-            Verification Not Completed
+            Validation Not Completed
           </h2>
           <p className="text-muted-foreground">
-            We could not complete your verification. Please check your information and try again.
+            We could not complete your verification. Please retry.
           </p>
         </div>
 
@@ -25,7 +25,7 @@ const Error = () => {
           onClick={() => navigate("/verification-form")}
           className="w-full h-12 text-lg bg-primary hover:bg-primary/90 shadow-lg shadow-primary/30"
         >
-          Retry Verification
+          Retry Validation
         </Button>
       </Card>
     </div>
