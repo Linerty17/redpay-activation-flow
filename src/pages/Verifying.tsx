@@ -18,7 +18,7 @@ const Verifying = () => {
       <div className="text-center space-y-8">
         <Loader2 className="w-16 h-16 text-primary animate-spin mx-auto" />
         <h2 className="text-2xl font-semibold text-foreground">
-          Verifying your information…
+          Processing your validation…
         </h2>
       </div>
     </div>
