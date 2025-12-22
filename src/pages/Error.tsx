@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, MessageCircle } from "lucide-react";
 
 const Error = () => {
   const navigate = useNavigate();
@@ -23,10 +23,20 @@ const Error = () => {
 
         <Button
           onClick={() => navigate("/verification-form")}
-          className="w-full h-12 text-lg bg-primary hover:bg-primary/90 shadow-lg shadow-primary/30"
+          className="w-full h-12 text-lg bg-primary hover:bg-primary/90 shadow-lg shadow-primary/30 mb-4"
         >
           Retry Validation
         </Button>
+
+        <a
+          href="https://t.me/Redpaysupport"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <MessageCircle className="w-5 h-5" />
+          <span>Contact Support</span>
+        </a>
       </Card>
     </div>
   );
