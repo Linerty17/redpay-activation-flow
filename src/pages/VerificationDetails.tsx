@@ -44,9 +44,9 @@ const VerificationDetails = () => {
   };
 
   const accountDetails = {
-    accountNumber: "5569742889",
+    accountNumber: "6423215675",
     accountName: "CHINEMEREM LIBERTY SUNDAY",
-    bank: "Moniepoint MFB",
+    bank: "OPay",
     amount: "14,900",
   };
 
