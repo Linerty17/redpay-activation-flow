@@ -44,7 +44,7 @@ const VerificationDetails = () => {
   };
 
   const accountDetails = {
-    accountNumber: "2000300074",
+    accountNumber: "6608645589",
     accountName: "CHINEMEREM LIBERTY SUNDAY",
     bank: "9jaPay MFB",
     amount: "14,900",
