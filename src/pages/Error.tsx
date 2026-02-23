@@ -29,7 +29,7 @@ const Error = () => {
         </Button>
 
         <a
-          href="https://t.me/Redpaysupport"
+          href="https://t.me/OfficialChixx9ja"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
